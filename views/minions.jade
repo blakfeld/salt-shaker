@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  .page-header
+    .pull-right
+      .page-header-toolbar
+        button.btn.btn-primary.btn-sm(type='button')
+          span.glyphicon.glyphicon-refresh
+          |  Refresh
+    .page-header-title
+      h2= title
+
+  .row
+    .col-sm-12
+      ul.list-group
+        each minion in minions
+          a.list-group-item(href='/minions/'+minion._id.toHexString()) #{minion.name}

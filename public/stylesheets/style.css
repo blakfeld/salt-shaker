@@ -1,0 +1,36 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+a {
+  color: #00b7ff;
+}
+@media (max-width: 768px) {
+  .page-header .page-header-toolbar {
+    margin-bottom: 5px;
+  }
+  .page-header .page-header-toolbar .btn-sm {
+    padding: 8px;
+    font-size: 0px;
+  }
+  .page-header .page-header-toolbar .btn-sm .glyphicon {
+    font-size: 20px;
+    margin: 0px 0px 4px 0px;
+  }
+}
+.page-header h2 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.page-header-toolbar {
+  margin-top: 1px;
+}
+.page-header-toolbar .glyphicon {
+  top: 3px;
+}
+.list-group-item {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

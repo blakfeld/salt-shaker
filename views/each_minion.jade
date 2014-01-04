@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  .page-header
+    .pull-right
+      .page-header-toolbar
+        button.btn.btn-primary.btn-sm(type='button')
+          span.glyphicon.glyphicon-refresh
+          |  Refresh
+    h2= title
+
+  .row
+    .col-sm-12
+      .list-group
+        each data, key in items
+          .list-group-item
+            h4.list-group-item-heading #{key}: 
+            - if(Array.isArray(data))
+                each each_item in data
+                  ul
+                    p #{each_item}
+            - else
+                p.list-group-item-text
+                  ul
+                    p #{data}
