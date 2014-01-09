@@ -21,7 +21,17 @@ Salt_Parser.prototype.refreshAllMinions = function(callback) {
     }
     salt_api.minion_function(host, token, '*', 'test.ping', function(error, data) {
       if (error) console.log(error);
-      callback(null, data.return[0].minions);
+      var jid = data.return[0].jid;
+      salt_api.get_job_results(host, token, jid, function(error, data) {
+        if (error) {
+          console.log("Get Job Result Error: " + error);
+          callback(true)
+        } else {
+          result = [];
+          for (var key in data.return[0]) result.push(key);
+          callback(null, result);
+        }
+      });
      });
   });
 };
@@ -32,7 +42,6 @@ Salt_Parser.prototype.refreshMinionGrains = function(minion, callback) {
       console.log(error);
       callback(true);
     }
-
     salt_api.get_minion_grains(host, token, minion, function(error, data) {
         callback(null, data.return[0]);
      });

@@ -25,9 +25,12 @@ Salt_API.prototype.get_minion_grains = function(host, token, target, callback) {
   rest.get(host + '/minions/' + target, {
     headers: {
       "X-Auth-Token": token
-    }
+    },
+    timeout : 30000
   }).on('complete', function(data) {
     callback(null, data);
+  }).on('timeout', function(error) {
+    callback("timeout");
   }).on('error', function(error) {
     console.log(error)
     callback(true);
@@ -43,12 +46,31 @@ Salt_API.prototype.minion_function = function(host, token, target, func, callbac
     data: {
       "tgt": target,
       "fun": func
-    }
+    },
+    timeout: 30000
   }).on('complete', function(data) {
     callback(null, data);
+  }).on('timeout', function(error) {
+    callback("timeout");
   }).on('error', function(error) {
     console.log(error)
     callback(true);
+  });
+};
+
+Salt_API.prototype.get_job_results = function(host, token, jid, callback) {
+  rest.get(host + '/jobs/' + jid, {
+    headers: {
+      "X-Auth-Token": token
+    },
+    timeout: 30000
+  }).on('complete', function(data) {
+    callback(null, data);
+  }).on('timeout', function(error) {
+    console.log("Error :(");
+    callback("timeout");
+  }).on('error', function(error) {
+    callback(error);
   });
 };
 

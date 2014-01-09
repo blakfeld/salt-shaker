@@ -9,14 +9,17 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var routescan = require('express-routescan');
+var io = require('socket.io');
 
 // Test Requires
 Salt_Database = require('./salt-database').Salt_Database;
 salt_database = new Salt_Database();
 
 var app = express();
+var server = http.createServer(app)
+var io = io.listen(server);
 
-// all environments
+// All environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -32,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Route Scan
 routescan(app);
 
-// development only
+// Development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
@@ -41,16 +44,32 @@ app.get('/reference', function(req, res) {
   res.render('reference');
 });
 
-app.get('/database', function(req, res){
-  salt_database.addMinionsToDatabase(function(error){
-    if (error) {
-      res.send("Error: " + error);
-    } else {
-      res.send("It worked?");
-    }
-  })
+app.get('/socket_test', function(req, res) {
+  res.render('socket_test');
 });
 
-http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+// Sockets
+io.on('connection', function(socket) {
+  
+  socket.on('get_minion_list', function(error, data) {
+    salt_database.getAllMinions(function(error, data) {
+      socket.emit('minion_list', {'minions': data});
+    });
+  });
+
+  socket.on('refresh_minion_list', function(error) {
+    salt_database.addMinionsToDatabase(function(error, data) {
+      salt_database.getAllMinions(function(error, docs) {
+        socket.emit('minion_list', {'minions': docs});
+      });
+    });
+  });
+
 });
+
+// Start Server
+app.start = app.listen = function() {
+  return server.listen.apply(server, arguments);
+}
+
+app.start(app.get('port'));

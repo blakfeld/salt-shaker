@@ -19,22 +19,28 @@ Salt_Database.prototype.addMinionsToDatabase = function(callback) {
     if (error) {
       callback(true);
     }
-    if (typeof(data.length) !== "undefined"){
+    console.log("LOOK HERE " + typeof(data));
+    console.log(data);
+    if (typeof(data.length) !== "undefined") {
+      minions.drop();
+
       for (var i = 0; i < data.length; i++) {
+        minions.insert({"name": data[i], "grains":{}})
         salt_parser.refreshMinionGrains(data[i], function(error, data) {
           if (error) {
             console.log(error);
           } else {
-            console.log(typeof(data));
             var name = Object.keys(data).toString();
-            console.log(data[name]);
             if (name !== "") {
-              minions.insert({"name": name, "grains": data[name]});
+              minions.update({"name": name}, {$set: {"grains": data[name]}});
             }
           }
         });
       }
       callback(null, data);
+    } else {
+      console.log("Data returned null");
+      callback("Data returned null");
     }
   });
 };
@@ -42,7 +48,6 @@ Salt_Database.prototype.addMinionsToDatabase = function(callback) {
 Salt_Database.prototype.getAllMinions = function(callback) {
   var minions = this.db.get('minions');
   minions.find({}, function(error, docs) {
-    console.log(docs);
     callback(null, docs);
   });
 };
