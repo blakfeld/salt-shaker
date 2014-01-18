@@ -9,22 +9,24 @@ a {
   .page-header .page-header-toolbar {
     margin-bottom: 5px;
   }
-  .page-header .page-header-toolbar .btn-sm {
+  .page-header .btn-sm {
     padding: 8px;
     font-size: 0px;
   }
-  .page-header .page-header-toolbar .btn-sm .glyphicon {
+  .page-header .btn-sm .glyphicon {
     font-size: 20px;
     margin: 0px 0px 4px 0px;
   }
 }
 .page-header h2 {
-  overflow: hidden;
+  overflow-y: visible;
+  overflow-x: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  padding-bottom: 2px;
 }
 .page-header-toolbar {
-  margin-top: 1px;
+  margin-top: 2px;
 }
 .page-header-toolbar .glyphicon {
   top: 2px;
@@ -33,4 +35,7 @@ a {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+.settings_edit .input-group-addon {
+  min-width: 100px;
 }

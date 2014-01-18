@@ -1,22 +1,10 @@
-extends layout
+extends minion_layout
+
+block content
+  .row
+    .col-sm-12
+      #minions_list
 
 block script_includes
   script(src='/socket.io/socket.io.js')
   script(src='./javascripts/manage_minion_list.js')
-
-block content
-  .page-header
-    .pull-right
-      .page-header-toolbar
-        button.btn.btn-primary.btn-sm(id='refresh' type='button' data-loading-text="Refreshing...")
-          span.glyphicon.glyphicon-refresh
-          |  Refresh
-    .page-header-title
-      h2= title
-
-  .row
-    .col-sm-12
-      #minions_list
-      //- ul.list-group
-      //-   each minion in minions
-      //-     a.list-group-item(href='/minions/'+minion._id.toHexString()) #{minion.name}

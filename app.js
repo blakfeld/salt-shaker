@@ -50,7 +50,6 @@ app.get('/socket_test', function(req, res) {
 
 // Sockets
 io.on('connection', function(socket) {
-  
   socket.on('get_minion_list', function(error, data) {
     salt_database.getAllMinions(function(error, data) {
       socket.emit('minion_list', {'minions': data});
@@ -65,6 +64,17 @@ io.on('connection', function(socket) {
     });
   });
 
+  socket.on('get_minion_grains', function(data) {
+    salt_database.getMinionById(data.minion_id, function(error, data){
+      socket.emit('grain_list', {'grains': data.grains});
+    });
+  });
+
+  socket.on('refresh_minion_grains', function(data) {
+    salt_database.addMinionGrains(data.minion_id, function(error, data){ 
+      socket.emit('grain_list', {'grains': data});
+    });
+  });
 });
 
 // Start Server

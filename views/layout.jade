@@ -8,7 +8,6 @@ html
     script(src='https://code.jquery.com/jquery-1.10.2.min.js')
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
     script(src='/bootstrap/dist/js/bootstrap.min.js')
-    block script_includes
   body
 
     //-
@@ -38,4 +37,6 @@ html
                   a(href="#{nav_link}")= name
 
     .container
+      block page_header
       block content
+    block script_includes

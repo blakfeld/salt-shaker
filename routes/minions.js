@@ -6,7 +6,7 @@
 var Salt_Database = require('../salt-database').Salt_Database;
 var salt_database = new Salt_Database();
 
-'use strict';
+// 'use strict';
 
 module.exports = {
   '/minions': function(req, res) {

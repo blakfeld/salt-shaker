@@ -1,0 +1,19 @@
+extends layout
+
+block page_header
+  .page-header
+    .pull-right
+      .page-header-toolbar
+        .btn-group
+          button.btn.btn-primary.btn-sm(id='refresh' type='button' data-loading-text="Refreshing...")
+            span.glyphicon.glyphicon-refresh
+            | &nbsp;&nbsp;Refresh&nbsp;
+          .btn-group
+            button.btn.btn-info.btn-sm.dropdown-toggle(type='button' data-toggle="dropdown")
+              | &nbsp;More&nbsp;&nbsp;
+              span.glyphicon.glyphicon-chevron-down
+            block more_dropdown
+    .page-header-title
+      h2= title
+
+block content

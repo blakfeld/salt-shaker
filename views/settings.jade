@@ -1,0 +1,46 @@
+extends layout
+
+block page_header
+  .page-header
+    .pull-right
+        .btn-group
+          a.btn.btn-primary.btn-sm(id='save' type='button' href="/settings/edit")
+            span.glyphicon.glyphicon-save
+            | &nbsp;&nbsp;Save&nbsp;
+          .btn-group
+            button.btn.btn-info.btn-sm.dropdown-toggle(type="button" data-toggle="dropdown")
+              | &nbsp;More&nbsp;&nbsp;
+              span.glyphicon.glyphicon-chevron-down
+            ul.dropdown-menu
+              li
+                  a(hef='#') App Settings
+              li.active
+                a(href='#') Server Settings
+    .page-header-title
+      h2= title
+
+block content
+  .row
+    .col-sm-6
+      .settings_edit
+        form(role='form')
+          label.h4 Server Settings
+          .input-group
+            span.input-group-addon Salt Server
+            input.form-control(type="text" placeholder="http://example.com:8000")
+          br
+          .input-group
+            span.input-group-addon Username
+            input.form-control(type="text" placeholder="Username")
+          br
+          .input-group
+            span.input-group-addon Password
+            input.form-control(type="password" placeholder="Password")
+          br
+          label.h4 Authentication Type
+          select.form-control
+            Option
+              | epam
+            Option
+              | ldap
+
