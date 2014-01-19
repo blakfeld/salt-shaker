@@ -13,9 +13,9 @@ a {
     padding: 8px;
     font-size: 0px;
   }
-  .page-header .btn-sm .glyphicon {
+  .page-header .btn-sm i {
     font-size: 20px;
-    margin: 0px 0px 4px 0px;
+    margin: 3px 0px 0px 0px;
   }
 }
 .page-header h2 {
@@ -28,8 +28,8 @@ a {
 .page-header-toolbar {
   margin-top: 2px;
 }
-.page-header-toolbar .glyphicon {
-  top: 2px;
+.page-header-toolbar .btn-icon {
+  padding-bottom: 50px;
 }
 .list-group-item {
   overflow: hidden;

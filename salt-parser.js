@@ -1,4 +1,3 @@
-
 /**
 * Parse Information returned by Salt-API
 */
@@ -13,6 +12,9 @@ var authtype = 'pam';
 Salt_Parser = function() {
 };
 
+/**
+ * Function to request a list of all active minions from the Salt Server
+ */
 Salt_Parser.prototype.refreshAllMinions = function(callback) {
   salt_api.login(host, user, pass, authtype, function(error, token) {
     if (error) {
@@ -36,6 +38,10 @@ Salt_Parser.prototype.refreshAllMinions = function(callback) {
   });
 };
 
+/**
+ * Function to request all the known grains for a specific minion.
+ * @param {String} minion - The Minion to target.
+ */
 Salt_Parser.prototype.refreshMinionGrains = function(minion, callback) {
   salt_api.login(host, user, pass, authtype, function(error, token) {
     if (error) {

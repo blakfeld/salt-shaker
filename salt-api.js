@@ -1,4 +1,3 @@
-
 /**
 * Salt-API Rest Interface
 */
@@ -6,6 +5,13 @@
 var rest = require('restler');
 Salt_API = function() {};
 
+/**
+ * Function to login to the Salt Server
+ * @param {String} host - The host name of the Salt Server (http://example.com:8000)
+ * @param {String} user - The User to attempt a login with.
+ * @param {String} password - The corresponding password to attempt a login with.
+ * @param {String} authtype - The Authentication Type to use (i.e. epam, ldap, etc).
+ */
 Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
   rest.post(host + '/login', {
     data: {
@@ -21,6 +27,12 @@ Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
   });
 };
 
+/**
+ * Function to get a Minions grains from the server.
+ * @param {String} host - The host name of the Salt Server (http://example.com:8000)
+ * @param {String} token - The session token for the salt server.
+ * @param {String} target - The targeted minion.
+ */
 Salt_API.prototype.get_minion_grains = function(host, token, target, callback) {
   rest.get(host + '/minions/' + target, {
     headers: {
@@ -37,6 +49,13 @@ Salt_API.prototype.get_minion_grains = function(host, token, target, callback) {
   });
 };
 
+/**
+ * Function go run an action on a targed minion.
+ * @param {String} host - The host name of the Salt Server (http://example.com:8000)
+ * @param {String} token - The session token for the salt server.
+ * @param {String} target - The targeted minion.
+ * @param {String} func - The Function to run on the targeted Minion.
+ */
 Salt_API.prototype.minion_function = function(host, token, target, func, callback) {
   rest.post(host + '/minions', {
     headers: {
@@ -58,6 +77,12 @@ Salt_API.prototype.minion_function = function(host, token, target, func, callbac
   });
 };
 
+/**
+ * Function to get a jobs return.
+ * @param {String} host - The host name of the Salt Server (http://example.com:8000)
+ * @param {String} token - The session token for the salt server.
+ * @param {String} jid - The job ID number for the Salt-Run
+ */
 Salt_API.prototype.get_job_results = function(host, token, jid, callback) {
   rest.get(host + '/jobs/' + jid, {
     headers: {

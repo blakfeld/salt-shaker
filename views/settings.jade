@@ -4,7 +4,7 @@ block page_header
   .page-header
     .pull-right
         .btn-group
-          a.btn.btn-primary.btn-sm(id='save' type='button' href="/settings/edit")
+          a.btn.btn-primary.btn-sm(id='save' type='button' href="#")
             span.glyphicon.glyphicon-save
             | &nbsp;&nbsp;Save&nbsp;
           .btn-group
@@ -12,10 +12,10 @@ block page_header
               | &nbsp;More&nbsp;&nbsp;
               span.glyphicon.glyphicon-chevron-down
             ul.dropdown-menu
-              li
-                  a(hef='#') App Settings
               li.active
                 a(href='#') Server Settings
+              li
+                a(hef='#') App Settings
     .page-header-title
       h2= title
 
@@ -37,10 +37,11 @@ block content
             span.input-group-addon Password
             input.form-control(type="password" placeholder="Password")
           br
+          hr
           label.h4 Authentication Type
           select.form-control
             Option
-              | epam
+              | PAM
             Option
-              | ldap
+              | LDAP
 

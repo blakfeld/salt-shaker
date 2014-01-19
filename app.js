@@ -9,15 +9,11 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var routescan = require('express-routescan');
-var io = require('socket.io');
+var salt_sockets = require('./salt-sockets');
 
-// Test Requires
-Salt_Database = require('./salt-database').Salt_Database;
-salt_database = new Salt_Database();
-
+// Init Express
 var app = express();
 var server = http.createServer(app)
-var io = io.listen(server);
 
 // All environments
 app.set('port', process.env.PORT || 3000);
@@ -35,46 +31,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Route Scan
 routescan(app);
 
+// Socket Listener
+salt_sockets(server);
+
 // Development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+// Development Reference Page
 app.get('/reference', function(req, res) {
   res.render('reference');
-});
-
-app.get('/socket_test', function(req, res) {
-  res.render('socket_test');
-});
-
-// Sockets
-io.on('connection', function(socket) {
-  socket.on('get_minion_list', function(error, data) {
-    salt_database.getAllMinions(function(error, data) {
-      socket.emit('minion_list', {'minions': data});
-    });
-  });
-
-  socket.on('refresh_minion_list', function(error) {
-    salt_database.addMinionsToDatabase(function(error, data) {
-      salt_database.getAllMinions(function(error, docs) {
-        socket.emit('minion_list', {'minions': docs});
-      });
-    });
-  });
-
-  socket.on('get_minion_grains', function(data) {
-    salt_database.getMinionById(data.minion_id, function(error, data){
-      socket.emit('grain_list', {'grains': data.grains});
-    });
-  });
-
-  socket.on('refresh_minion_grains', function(data) {
-    salt_database.addMinionGrains(data.minion_id, function(error, data){ 
-      socket.emit('grain_list', {'grains': data});
-    });
-  });
 });
 
 // Start Server

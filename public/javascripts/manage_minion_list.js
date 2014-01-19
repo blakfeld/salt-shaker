@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var socket = io.connect('http://localhost:3000');
   var minion_list = document.getElementById("minions_list");
-   $('#refresh').button();
+  $('#refresh').button();
   
   // Request intial minion list
   socket.emit('get_minion_list');
@@ -13,7 +13,7 @@ $(document).ready(function() {
       var html = "<ul class='list-group'>";
 
       for(var i = 0; i < minions.length; i++) {
-        html += "<a href='/minions/" + minions[i]['_id'] + "'' class='list-group-item'>" + minions[i].name + "</a>"
+        html += "<a href='/minions/" + minions[i]['_id'] + "'' class='list-group-item'><h4>" + minions[i].name + "</h4></a>"
       }
 
       html += "</ul>"

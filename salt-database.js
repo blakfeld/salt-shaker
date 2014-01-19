@@ -1,10 +1,9 @@
-
 /**
  * The go-between for MongoDB and Salt-API
  */
 
-var monk = require('monk')
-var ObjectID = require('mongodb').ObjectID
+var monk = require('monk');
+var ObjectID = require('mongodb').ObjectID;
 var Salt_Parser = require('./salt-parser').Salt_Parser;
 var salt_parser = new Salt_Parser();
 
@@ -12,6 +11,9 @@ var salt_parser = new Salt_Parser();
   this.db = monk('localhost:27017/salt-shaker-database');
  };
 
+/**
+ * Function to Add whatever Minions the Server reports as active to the database.
+ */
 Salt_Database.prototype.addMinionsToDatabase = function(callback) {
   var minions = this.db.get('minions');
 
@@ -43,6 +45,10 @@ Salt_Database.prototype.addMinionsToDatabase = function(callback) {
   });
 };
 
+/**
+ * Function to return the known grains for a specific minion.
+ * @param {Object} id - Mongo hex _id for the desired minion.
+ */
 Salt_Database.prototype.addMinionGrains = function(id, callback) {
   var minions = this.db.get('minions');
   this.getMinionById(id, function(error, data) {
@@ -54,6 +60,9 @@ Salt_Database.prototype.addMinionGrains = function(id, callback) {
   });
 };
 
+/**
+ * Function to return all Minions in the Database.
+ */
 Salt_Database.prototype.getAllMinions = function(callback) {
   var minions = this.db.get('minions');
   minions.find({}, function(error, docs) {
@@ -61,6 +70,10 @@ Salt_Database.prototype.getAllMinions = function(callback) {
   });
 };
 
+/**
+ * Function to return information about a specifc Minion.
+ * @param {Object} id - Mongo hex _id for the desired minion.
+ */ 
 Salt_Database.prototype.getMinionById = function(id, callback) {
   var minions = this.db.get('minions');
   console.log(id);
@@ -74,4 +87,4 @@ Salt_Database.prototype.getMinionById = function(id, callback) {
   });
 };
 
- exports.Salt_Database = Salt_Database;
+exports.Salt_Database = Salt_Database;

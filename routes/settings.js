@@ -1,8 +1,6 @@
-
 /*
  * GET Settings page.
  */
-
 
 module.exports = {
   '/settings': function(req, res) {
