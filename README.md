@@ -1,7 +1,7 @@
 ## Salt-Shaker
 This is my attempt at building a frontend for SaltStack. I know that the actual SaltStack team has a project called Halite, but it seems like that project is on the back burner for the time being, and I really wanted a UI to hand out to my clients quicker. Plus, I was super interested in learning Node.js, and due to its asyncronous nature, Salt seemed like a good match.
 
-### This project is super pre crazy alpha
+### This Project is Super Crazy Pre-Alpha
 
 If you come across this and are thinking "Hey, I want a Salt frontend, should I use this?" The answer at this junction is no. Unless you feel like sending me a ton of pull requests.
 
