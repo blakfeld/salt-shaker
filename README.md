@@ -10,9 +10,9 @@ At the moment, all this app does is let you see what active minions you have, an
 ### Features in Progress
 Once thes features are complete, I'll consider this project in alpha, and usable.
 
-- [X] View Minions
-- [X] View Minion Grains
-- [X] Store Connection info in Database
+- [x] View Minions
+- [x] View Minion Grains
+- [x] Store Connection info in Database
 - [ ] Encrypt Sensitive Data (This does mean your passwords. Yup. Plaintext at the moment)
 - [ ] Add Login
 - [ ] Run Salt Calls
