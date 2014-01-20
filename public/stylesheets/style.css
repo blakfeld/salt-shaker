@@ -18,6 +18,12 @@ a {
     margin: 3px 0px 0px 0px;
   }
 }
+.dynamic_alerts {
+  margin-top: 25px;
+}
+.dynamic_alerts .alert_close {
+  margin-bottom: 4px;
+}
 .page-header h2 {
   overflow-y: visible;
   overflow-x: hidden;

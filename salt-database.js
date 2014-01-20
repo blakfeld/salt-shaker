@@ -76,7 +76,6 @@ Salt_Database.prototype.getAllMinions = function(callback) {
  */ 
 Salt_Database.prototype.getMinionById = function(id, callback) {
   var minions = this.db.get('minions');
-  console.log(id);
   minions.findById(ObjectID.createFromHexString(id), function(error, doc){
     if (error) {
       console.log(error);

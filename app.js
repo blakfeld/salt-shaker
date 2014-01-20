@@ -8,6 +8,7 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var gzippo = require('gzippo')
 var routescan = require('express-routescan');
 var salt_sockets = require('./salt-sockets');
 
@@ -26,7 +27,9 @@ app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(gzippo.staticGzip(__dirname + '/public'));
+app.use(gzippo.compress());
+
 
 // Route Scan
 routescan(app);

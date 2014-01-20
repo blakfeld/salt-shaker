@@ -7,9 +7,6 @@ html
     link(rel='stylesheet' href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
   body
 
-    //-
-      Navigation Header
-
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
       .container
         .navbar-header
@@ -34,9 +31,13 @@ html
                   a(href="#{nav_link}")= name
 
     .container
+      .dynamic_alerts(id="alerts")
       block page_header
       block content
+
     script(src='https://code.jquery.com/jquery-1.10.2.min.js')
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
     script(src='/bootstrap/dist/js/bootstrap.min.js')
+    script(src='/bootstrap/js/alert.js')
+    script(src='/javascripts/bootstrap_alerts.js')
     block script_includes

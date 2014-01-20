@@ -13,6 +13,7 @@ Salt_API = function() {};
  * @param {String} authtype - The Authentication Type to use (i.e. epam, ldap, etc).
  */
 Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
+  console.log("Host: " + host + ", user: " + user + ", pass: " + pass + ", auth_type: " + authtype);
   rest.post(host + '/login', {
     data: {
       'username': user,

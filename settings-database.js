@@ -3,7 +3,7 @@
  */
 
  var monk = require('monk');
- var ObjectID = reqiure('mongodb').ObjectID;
+ var ObjectID = require('mongodb').ObjectID;
 
  Settings_Database = function() {
   this.db=monk('localhost:27017/salt-shaker-database');
@@ -14,36 +14,26 @@
  * @param {String} type - The type of settings (i.e. settings for the Server, App Settings, Login, etc)
  * @param {Object} settings - The actual Dictionary/JSON to be sent into the database
  */
-Settings_Database.prototype.setSettings = function(type, settings, callback) {
+Settings_Database.prototype.setSettings = function(type, newSettings, callback) {
   var settings = this.db.get('settings');
-
-  minions.insert({"type": type, "settings": settings}, function(error){
-    if (error) {
-      console.log("Unable to add settings for " + type + ": " + error);
-      callback(true);
-    }
-    callback(null, settings);
-  });
+  settings.remove({"type": type});
+  settings.insert({"type": type, "settings": newSettings})
+  callback(null, newSettings);
 };
 
 /**
  * Function to return all Settings for a selected Settings collection
  * @param {String} type - The type of settings (i.e. settings for the Server, App Settings, Login, etc)
  */
-Settings_Database.prototype.getAllSettings = function(type, callback) {
+Settings_Database.prototype.getSettings = function(type, callback) {
   var settings = this.db.get('settings');
-  
-  if (settings.exists()) {
-    settings.find({}, function(error, results) {
-      if (error) {
-        console.log("Unable to retreive settings: " + error);
-        callback(true);
-      }
-      callback(null, results[type]);
-    });
-  } else {
-    callback(null, "none");
-  } 
+  settings.findOne({"type": type}, function(error, results) {
+    if (error) {
+      console.log("Unable to retreive settings: " + error);
+      callback(true);
+    }
+    callback(null, results);
+  });
 };
 
-exports.Settings_Database = Salt_Database;
+exports.Settings_Database = Settings_Database;
