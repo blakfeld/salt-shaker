@@ -1,9 +1,0 @@
-Initialized routes:
- # GET /
- # GET /minions
- # GET /minions/:id
- # GET /settings
- # GET list
-Done.
-info: socket.io started
-[90mGET /settings [32m200 [90m323ms - 2.85kb[0m
