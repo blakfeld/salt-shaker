@@ -19,6 +19,7 @@ a {
   }
 }
 .dynamic_alerts {
+  height: 100%;
   margin-top: 25px;
 }
 .dynamic_alerts .alert_close {
