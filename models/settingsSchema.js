@@ -2,12 +2,14 @@
  * Server Settings Database Object Model
  */
 
+var databaseConfig = require('../config/database');
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema
+var Schema = mongoose.Schema;
+var db = mongoose.createConnection(databaseConfig.server, databaseConfig.database);
 
-var serverSettingsSchema = new Schema({
+var settingsSchema = new Schema({
   type: String,
   settings: Object
 });
 
-module.exports = mongoose.model('Settings', serverSettingsSchema);
+module.exports = db.model('Settings', settingsSchema);

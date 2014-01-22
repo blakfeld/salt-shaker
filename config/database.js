@@ -1,5 +1,5 @@
 database = {
-  'server': 'mongodb://localhost/',
+  'server': 'localhost',
   'database': 'salt-shaker-database',
   'username': '',
   'password': ''
