@@ -12,7 +12,7 @@
     "express-routescan": "*",
     "restler": "*",
     "mongodb": "*",
-    "monk": "*",
+    "mongoose": "*",
     "socket.io": "*",
     "gzippo": "*",
     "validator": "*"

@@ -1,37 +1,49 @@
 /**
- * Set and get server settings
+ * Set and get server settings.
  */
 
- var monk = require('monk');
- var ObjectID = require('mongodb').ObjectID;
+var databaseConfig = require('./config/database');
+var mongoose = require('mongoose');
+var Settings = require('./models/settingsSchema');
 
  Settings_Database = function() {
-  this.db=monk('localhost:27017/salt-shaker-database');
+  this.dbConnect = databaseConfig.server + databaseConfig.database;
  };
 
 /**
  * Function to Set Values in the Settings Collection.
- * @param {String} type - The type of settings (i.e. settings for the Server, App Settings, Login, etc)
- * @param {Object} settings - The actual Dictionary/JSON to be sent into the database
+ * @param {String} type - The type of settings (i.e. settings for the Server, App Settings, Login, etc).
+ * @param {Object} settings - The actual Dictionary/JSON to be sent into the database.
  */
 Settings_Database.prototype.setSettings = function(type, newSettings, callback) {
-  var settings = this.db.get('settings');
-  settings.remove({"type": type});
-  settings.insert({"type": type, "settings": newSettings})
+  mongoose.connect(this.dbConnect);
+  db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error: '));
+  
+  Settings.remove({});
+  newSet = new Settings({"type": type, "settings": newSettings});
+
+  mongoose.connection.close();
   callback(null, newSettings);
 };
 
 /**
- * Function to return all Settings for a selected Settings collection
- * @param {String} type - The type of settings (i.e. settings for the Server, App Settings, Login, etc)
+ * Function to return all Settings for a selected Settings collection.
+ * @param {String} type - The type of settings (i.e. settings for the Server, App Settings, Login, etc).
  */
 Settings_Database.prototype.getSettings = function(type, callback) {
-  var settings = this.db.get('settings');
-  settings.findOne({"type": type}, function(error, results) {
+  mongoose.connect(this.dbConnect);
+  db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error: '));
+
+  Settings.findOne({"type": type}, function(error, results) {
     if (error) {
       console.log("Unable to retreive settings: " + error);
+      mongoose.connection.close();
       callback(true);
     }
+
+    mongoose.connection.close();
     callback(null, results);
   });
 };
