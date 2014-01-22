@@ -13,7 +13,6 @@
     "restler": "*",
     "mongodb": "*",
     "mongoose": "*",
-    "monk": "*",
     "socket.io": "*",
     "gzippo": "*",
     "validator": "*"

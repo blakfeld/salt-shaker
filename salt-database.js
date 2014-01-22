@@ -16,36 +16,40 @@ Salt_Database = function() {
  * Function to Add whatever Minions the Server reports as active to the database.
  */
 Salt_Database.prototype.addMinionsToDatabase = function(callback) {
-  mongoose.connect(databaseConfig.server + databaseConfig.database);
+  mongoose.connect(this.dbConnect);
   db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error: '));
 
   salt_parser.refreshAllMinions(function(error, data){
     if (error) {
-      callback(true);
+      mongoose.connection.close();
+      callback(true, error);
     }
+
     if (typeof(data.length) !== "undefined") {
       Minion.remove({});
-
       for (var i = 0; i < data.length; i++) {
         var minion = new Minion({"name": data[i], "grains":{}});
-    
         salt_parser.refreshMinionGrains(data[i], function(error, data) {
           if (error) {
             console.log(error);
-          } else {
-            var name = Object.keys(data).toString();
-            if (name !== "") {
-              Minion.findOneAndUpdate({"name": name}, {$set: {"grains": data[name]}}, function(error) {
-                if (error) callback(true, error);
-
+            mongoose.connection.close();
+            callback(true, error);
+          }
+          
+          var name = Object.keys(data).toString();
+          if (name !== "") {
+            Minion.findOneAndUpdate({"name": name}, {$set: {"grains": data[name]}}, function(error) {
+              if (error) {
+                callback(true, error);
                 mongoose.connection.close();
-              });
-              //minions.update({"name": name}, {$set: {"grains": data[name]}});
-            }
+              }
+            });
           }
         });
-      }
+       }
+       
+      mongoose.connection.close();
       callback(null, data);
     } else {
       console.log("Data returned null");
@@ -59,11 +63,26 @@ Salt_Database.prototype.addMinionsToDatabase = function(callback) {
  * @param {Object} id - Mongo hex _id for the desired minion.
  */
 Salt_Database.prototype.addMinionGrains = function(id, callback) {
-  var minions = this.db.get('minions');
+  mongoose.connect(this.dbConnect);
+  db = mongoose.connection;
+  db.on('error', console.error.bind(console, 'connection error: '));
+
   this.getMinionById(id, function(error, data) {
+    if (error) {
+      mongoose.connection.close();
+      callback(true, error);
+    }
+
     var minion_name = data.name
     salt_parser.refreshMinionGrains(minion_name, function(error, data) {
-      minions.update({"name": minion_name}, {$set: {"grains": data[minion_name]}});
+      if (error) {
+        mongoose.connection.close();
+        callback(true, error);
+      }
+
+      Minion.update({"name": minion_name}, {$set: {"grains": data[minion_name]}});
+      mongoose.connection.close();
+
       callback(null, data[minion_name]);
     });
   });
@@ -73,14 +92,16 @@ Salt_Database.prototype.addMinionGrains = function(id, callback) {
  * Function to return all Minions in the Database.
  */
 Salt_Database.prototype.getAllMinions = function(callback) {
-  mongoose.connect(databaseConfig.server + databaseConfig.database);
+  mongoose.connect(this.dbConnect);
   db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error: '));
 
-  //var minions = this.db.get('minions');
-  console.log(typeof(Minion));
   Minion.find({}, function(error, docs) {
-    if (error) console.log("Database Error: " + error);
+    if (error) {
+      mongoose.connection.close();
+      console.log("Database Error: " + error);
+    }
+
     console.log("Database return: " + docs);
     mongoose.connection.close();
     callback(null, docs);
@@ -92,7 +113,7 @@ Salt_Database.prototype.getAllMinions = function(callback) {
  * @param {Object} id - Mongo hex _id for the desired minion.
  */ 
 Salt_Database.prototype.getMinionById = function(id, callback) {
-  mongoose.connect(databaseConfig.server + databaseConfig.database);
+  mongoose.connect(this.dbConnect);
   db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error: '));
 
