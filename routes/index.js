@@ -1,12 +1,9 @@
-
-/*
- * GET home page.
+/**
+ * Route Manager
  */
- 
-'use strict';
 
-module.exports = {
-  '/': function(req, res) {
-    res.render('index', { title: 'Home'});
-  }
-};
+module.exports = function(app) {
+  require('./main')(app);
+  require('./minions')(app);
+  require('./settings')(app);
+}

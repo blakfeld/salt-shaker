@@ -22,9 +22,11 @@ Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
     }
   }).on('complete', function(data) {
     callback(null, data.return[0].token);
+  }).on('timeout', function(error) {
+    callback(true, "timeout");
   }).on('error', function(error) {
     console.log(error)
-    callback(true);
+    callback(true, error);
   });
 };
 
@@ -43,10 +45,10 @@ Salt_API.prototype.get_minion_grains = function(host, token, target, callback) {
   }).on('complete', function(data) {
     callback(null, data);
   }).on('timeout', function(error) {
-    callback("timeout");
+    callback(true, "timeout");
   }).on('error', function(error) {
     console.log(error)
-    callback(true);
+    callback(true, error);
   });
 };
 
@@ -71,10 +73,10 @@ Salt_API.prototype.minion_function = function(host, token, target, func, callbac
   }).on('complete', function(data) {
     callback(null, data);
   }).on('timeout', function(error) {
-    callback("timeout");
+    callback(true, "timeout");
   }).on('error', function(error) {
     console.log(error)
-    callback(true);
+    callback(true, error);
   });
 };
 
@@ -93,10 +95,10 @@ Salt_API.prototype.get_job_results = function(host, token, jid, callback) {
   }).on('complete', function(data) {
     callback(null, data);
   }).on('timeout', function(error) {
-    console.log("Error :(");
-    callback("timeout");
+    callback(true, "timeout");
   }).on('error', function(error) {
-    callback(error);
+    console.log(error)
+    callback(true, error);
   });
 };
 

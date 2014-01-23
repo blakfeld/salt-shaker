@@ -30,7 +30,6 @@ module.exports = function salt_socket(server) {
   //   , 'jsonp-polling'
   // ]);
 
-
   // Connection
   io.on('connection', function(socket) {
 

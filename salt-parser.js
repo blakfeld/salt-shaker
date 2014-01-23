@@ -30,7 +30,10 @@ Salt_Parser.prototype.refreshAllMinions = function(callback) {
       }
 
       salt_api.minion_function(saltHost, token, '*', 'test.ping', function(error, data) {
-        if (error) console.log(error);
+        if (error) {
+          callback(true, error);
+        }
+
         var jid = data.return[0].jid;
 
         salt_api.get_job_results(saltHost, token, jid, function(error, data) {
@@ -69,7 +72,12 @@ Salt_Parser.prototype.refreshMinionGrains = function(minion, callback) {
         console.log(error);
         callback(true);
       }
-      salt_api.get_minion_grains(saltHost, token, minion, function(error, data) {
+
+        salt_api.get_minion_grains(saltHost, token, minion, function(error, data) {
+          if (error) {
+            callback(true, error);
+          }
+          
           callback(null, data.return[0]);
        });
     });
