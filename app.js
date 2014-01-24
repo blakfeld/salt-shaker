@@ -12,7 +12,6 @@ var salt_sockets = require('./salt-sockets');
 
 // Init Express
 var app = express();
-var routes = require('./routes')(app);
 var server = http.createServer(app)
 
 // Express Setup
@@ -21,10 +20,10 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
 app.use(express.logger('dev'));
+app.use(express.bodyParser());
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
-app.use(app.router);
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 
 // Gzippo
@@ -36,6 +35,8 @@ app.use(gzippo.compress());
 // app.use(passport.initialilze);
 // app.use(passport.session());
 // app.use(flash());
+var routes = require('./routes')(app);
+app.use(app.router);
 
 // Socket Listener
 salt_sockets(server);

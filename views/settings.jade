@@ -3,48 +3,52 @@ extends layout
 block page_header
   .page-header
     .pull-right
-      .btn-group
-        button.btn.btn-info.btn-sm.dropdown-toggle(type="button" data-toggle="dropdown")
-          | &nbsp;More&nbsp;&nbsp;
-          span.glyphicon.glyphicon-chevron-down
-        ul.dropdown-menu
-          li.active
-            a(href='#') Server Settings
-          li
-            a(hef='#') App Settings
+      .page-header-toolbar
+        .btn-group
+          button.btn.btn-primary.btn-sm(id='save' type='button' data-loading-text="<i class='fa fa-spinner fa-spin fa-lg'></i>&nbsp;&nbsp;Saving...&nbsp;")
+            span.glyphicon.glyphicon-save
+            | &nbsp;&nbsp;Save Changes&nbsp;
+          button.btn.btn-info.btn-sm.dropdown-toggle(type="button" data-toggle="dropdown")
+            | &nbsp;More&nbsp;&nbsp;
+            span.glyphicon.glyphicon-chevron-down
+          ul.dropdown-menu
+            li.active
+              a(href='#') Server Settings
+            li
+              a(hef='#') App Settings
     .page-header-title
       h2= title
 
 block content
   .row
+    if (message != '')
+      script(type='text/javascript').
+        bootstrap_alert( '#{message.type}', '<strong>#{message.title}:</strong> #{message.text}', 3000);
     .col-sm-6
       .settings_edit
-        form(id='settings' method='post')
+        form(id='settings' action='/settings' method='post')
           label.h4 Server Settings
           .input-group
             span.input-group-addon Salt Server
-            input.form-control(id="host" type="text" placeholder="http://example.com:8000")
+            input.form-control(name="host" enctype="application/json" type="text" placeholder="http://example.com:8000" value="#{host}") 
           br
           .input-group
             span.input-group-addon Username
-            input.form-control(id="user" type="text" placeholder="Username")
+            input.form-control(name="user" type="text" placeholder="Username" value="#{user}")
           br
           .input-group
             span.input-group-addon Password
-            input.form-control(id="pass" type="password" placeholder="Password")
+            input.form-control(name="pass" type="password" placeholder="Password" value="#{pass}")
           br
           hr
           label.h4 Authentication Type
-          select.form-control.input-sm(id="auth_type")
+          select.form-control.input-sm(name="auth_type" value="#{auth_type}")
             Option
               | PAM
             Option
               | LDAP
           br
           hr
-          a.btn.btn-primary.btn-sm(id='save' type='button' data-loading-text="<i class='fa fa-spinner fa-spin fa-lg'></i>&nbsp;&nbsp;Saving...&nbsp;")
-            span.glyphicon.glyphicon-save
-            | &nbsp;&nbsp;Save Changes&nbsp;
 
 block script_includes
   script(src='/socket.io/socket.io.js')

@@ -2,6 +2,7 @@
  * Set and get server settings.
  */
 
+var validator = require('validator');
 var Settings = require('./models/settingsSchema');
 
  Settings_Database = function() {};
@@ -13,11 +14,19 @@ var Settings = require('./models/settingsSchema');
  */
 Settings_Database.prototype.setSettings = function(type, newSettings, callback) {
 
-    Settings.remove({});
-    newSet = new Settings({"type": type, "settings": newSettings});
+    if(validator.isURL(newSettings.host)) {
+      if(newSettings.user == "" || newSettings.pass == "") {
+        callback(true, "Username and Password must be provided");
+      }
+
+      Settings.remove({});
+      newSet = new Settings({"type": type, "settings": newSettings});
+    
+    } else {
+      callback(true, "Host must be a URL");
+    }
     
     callback(null, newSettings);
-
 };
 
 /**
@@ -28,9 +37,7 @@ Settings_Database.prototype.getSettings = function(type, callback) {
 
     Settings.findOne({"type": type}, function(error, results) {
       if (error) {
-        console.log("Unable to retreive settings: " + error);
-        mongoose.connection.close();
-        callback(true);
+        callback(true, "Unable to retreive from database.");
       }
 
       callback(null, results);
@@ -38,4 +45,4 @@ Settings_Database.prototype.getSettings = function(type, callback) {
 
 };
 
-exports.Settings_Database = Settings_Database;
+module.exports = Settings_Database;

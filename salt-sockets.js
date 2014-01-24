@@ -5,7 +5,7 @@
 var io = require('socket.io');
 var validator = require('validator');
 var Salt_Database = require('./Salt-Database').Salt_Database;
-var Settings_Database = require('./Settings-Database').Settings_Database;
+var Settings_Database = require('./Settings-Database');
 
 /**
  * Function which handles all of salt-shakers sockets.
@@ -61,31 +61,6 @@ module.exports = function salt_socket(server) {
       salt_database.addMinionGrains(data.minion_id, function(error, data){ 
         socket.emit('grain_list', {'grains': data});
       });
-    });
-
-    // Get Server Settings
-    socket.on('get_settings', function(data) {
-      settings_database.getSettings(data.settingsType, function(error, data){
-        socket.emit('settings', {'settings': data});
-      });
-    });
-
-    // Set Server Settings
-    socket.on('set_settings', function(data) {
-      if (validator.isURL(data.settings.host)) {
-        if (data.settings.user == "" || data.settings.pass == "") {
-          socket.emit('settings', {'error': "Username and Password must be provided."});
-        } else {
-          settings_database.setSettings(data.settingsType, data.settings, function(error, data) {
-            if (error) {
-              console.log("Socket Error :( " + error)
-            }
-            socket.emit('settings', {'success': "Changes saved successfully!"});
-          });
-        }
-      } else {
-        socket.emit('settings', {'error': "Host must be a valid URL."});
-      }
     });
   });
 };

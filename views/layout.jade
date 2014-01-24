@@ -5,6 +5,11 @@ html
     link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet' href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+    script(src='https://code.jquery.com/jquery-1.10.2.min.js')
+    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+    script(src='/bootstrap/js/bootstrap.min.js')
+    script(src='/bootstrap/js/alert.js')
+    script(src='/javascripts/bootstrap_alerts.js')
   body
 
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
@@ -35,10 +40,4 @@ html
       .content
         block page_header
         block content
-
-    script(src='https://code.jquery.com/jquery-1.10.2.min.js')
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
-    script(src='/bootstrap/js/bootstrap.min.js')
-    script(src='/bootstrap/js/alert.js')
-    script(src='/javascripts/bootstrap_alerts.js')
     block script_includes
