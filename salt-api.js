@@ -23,10 +23,10 @@ Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
   }).on('complete', function(data) {
     callback(null, data.return[0].token);
   }).on('timeout', function(error) {
-    callback(true, "timeout");
+    callback(true, "Connection to Salt Server timed out on login.");
   }).on('error', function(error) {
     console.log(error)
-    callback(true, error);
+    callback(true, "Server Error on Login.");
   });
 };
 
@@ -45,10 +45,10 @@ Salt_API.prototype.get_minion_grains = function(host, token, target, callback) {
   }).on('complete', function(data) {
     callback(null, data);
   }).on('timeout', function(error) {
-    callback(true, "timeout");
+    callback(true, "Connection to Salt Server timed out while getting grains.");
   }).on('error', function(error) {
     console.log(error)
-    callback(true, error);
+    callback(true, "Server Error while getting Grains.");
   });
 };
 
@@ -73,10 +73,10 @@ Salt_API.prototype.minion_function = function(host, token, target, func, callbac
   }).on('complete', function(data) {
     callback(null, data);
   }).on('timeout', function(error) {
-    callback(true, "timeout");
+    callback(true, "Connection to Salt Server timed out while running function: " + func + ".");
   }).on('error', function(error) {
     console.log(error)
-    callback(true, error);
+    callback(true, "Server Error while running function: " + func + ".");
   });
 };
 
@@ -95,10 +95,10 @@ Salt_API.prototype.get_job_results = function(host, token, jid, callback) {
   }).on('complete', function(data) {
     callback(null, data);
   }).on('timeout', function(error) {
-    callback(true, "timeout");
+    callback(true, "Connection to Salt Server timed out while getting results from jid: " + jid + ".");
   }).on('error', function(error) {
     console.log(error)
-    callback(true, error);
+    callback(true, "Server Error while getting results for jid: " + jid + ".");
   });
 };
 
