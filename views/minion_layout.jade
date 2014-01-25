@@ -12,7 +12,18 @@ block page_header
             button.btn.btn-info.btn-sm.dropdown-toggle(type='button' data-toggle="dropdown")
               | &nbsp;More&nbsp;&nbsp;
               span.glyphicon.glyphicon-chevron-down
-            block more_dropdown
+            if (title == "Minions")
+              block more_dropdown
+            else
+                ul.dropdown-menu
+                  each name in ["Dashboard", "Highstate", "Grains", "Pillars"]
+                    - var nav_link = id + "/" + name.toLowerCase();
+                    if (subtitle == name)
+                      li.active
+                        a(href='#{nav_link}')= name
+                    else
+                      li
+                        a(href='#{nav_link}')=name
     .page-header-title
       h2= title
 

@@ -23,7 +23,7 @@ block content
   .row
     if (message != '')
       script(type='text/javascript').
-        bootstrap_alert( '#{message.type}', '<strong>#{message.title}:</strong> #{message.text}', 3000);
+        bootstrap_alert('#{message.type}', '<strong>#{message.title}:</strong> #{message.text}', 3000, false);
     .col-sm-6
       .settings_edit
         form(id='settings' action='/settings' method='post')
@@ -47,9 +47,6 @@ block content
               | PAM
             Option
               | LDAP
-          br
-          hr
 
 block script_includes
-  script(src='/socket.io/socket.io.js')
   script(src='/javascripts/settings.js')

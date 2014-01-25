@@ -11,8 +11,14 @@ module.exports = function(app) {
   });
 
   app.get('/minions/:id', function(req, res) {
-    salt_database.getMinionById(req.params.id, function(error, docs) {
-        res.render('each_minion', {title: docs['name'], items: docs['grains']});
+    salt_database.getMinionById(req.params.id, function(error, data) {
+        res.render('each_minion_grains', {title: data['name'], subtitle: 'Grains', items: data['grains'], id: req.params.id});
+    });
+  });
+
+  app.get('/minions/:id/highstate', function(req, res) {
+    salt_database.getMinionById(req.params.id, function(error, data) {
+      res.render('each_minion_highstate', {title: data['name'], subtitle: 'Highstate'});
     });
   });
 }

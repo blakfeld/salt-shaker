@@ -6,8 +6,9 @@ var Settings_Database = require('../settings-database');
 var settings_database = new Settings_Database();
 
 module.exports = function(app) {
-  app.get('/settings', function(req, res) {
 
+  app.get('/settings', function(req, res) {
+    
     settings_database.getSettings('server', function(error, data) {
       if (error) {
         res.render('settings', {title: 'Settings', message: { type: 'danger', title: 'Warning',  text: data } });

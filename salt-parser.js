@@ -43,7 +43,6 @@ Salt_Parser.prototype.refreshAllMinions = function(callback) {
 
           result = [];
           for (var key in data.return[0]) result.push(key);
-          console.log(result);
           callback(null, result);
         });
       });
@@ -84,4 +83,46 @@ Salt_Parser.prototype.refreshMinionGrains = function(minion, callback) {
   });
 };
 
+
+/**
+ * Function to get Minions highstate. Returns JSON object
+ * @param {String} minion - The Minion to Target.
+ */
+Salt_Parser.prototype.getMinionHighState = function(minion, callback) {
+
+  var minName = minion;
+
+  Settings.findOne({"type": "server"}, function(error, data) {
+    if (error) {
+      callback(true, error);
+    }
+
+    var saltHost = data.settings.host;
+    var saltUser = data.settings.user;
+    var saltPass = data.settings.pass;
+    var saltAuthType = data.settings.auth_type;
+
+    salt_api.login(saltHost, saltUser, saltPass, saltAuthType, function(error, token) {
+      if (error) {
+        callback(true, error);
+      }
+
+      salt_api.minion_function(saltHost, token, '*', 'state.show_highstate', function(error, data) {
+        if (error) {
+          callback(true, error);
+        }
+
+        var jid = data.return[0].jid;
+
+        salt_api.get_job_results(saltHost, token, jid, function(error, data) {
+          if (error) {
+            callback(true, error);
+          }
+
+          callback(null, data.return[0][minName]);
+        });
+      });
+    });
+  });
+};
 exports.Salt_Parser = Salt_Parser;
