@@ -8,7 +8,7 @@ If you come across this and are thinking "Hey, I want a Salt frontend, should I 
 At the moment, all this app does is let you see what active minions you have, and allows you to view their grains. To avoid constantly polling the salt-server, it stores everything in a mongodb database until you hit the refresh button.
 
 ### Features in Progress
-Once thes features are complete, I'll consider this project in alpha, and usable.
+Once these features are complete, I'll consider this project in alpha, and usable.
 
 - [x] View Minions
 - [x] View Minion Grains
