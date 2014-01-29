@@ -14,7 +14,7 @@ $(document).ready(function() {
 
             for (var i = 0; i < minions.length; i++) {
                 html += '<a href="/minions/' + minions[i]['_id'] +
-                    'class="list-group-item"><h4>' +
+                    '" class="list-group-item"><h4>' +
                     minions[i].name + '</h4></a>';
             }
 
