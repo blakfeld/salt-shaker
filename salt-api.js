@@ -115,7 +115,6 @@ Salt_API.prototype.get_job_results = function(host, token, jid, callback) {
         timeout: 30000
 
     }).on('complete', function(data) {
-        console.log('complete: ' + Object.keys(data.return[0]));
         callback(null, data);
 
     }).on('timeout', function(error) {
@@ -123,7 +122,6 @@ Salt_API.prototype.get_job_results = function(host, token, jid, callback) {
             'while getting results from jid: ' + jid + '.');
 
     }).on('error', function(error) {
-        console.log(error);
         callback(true, 'Server Error while getting ' +
             'results for jid: ' + jid + '.');
 
