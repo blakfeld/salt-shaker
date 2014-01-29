@@ -9,8 +9,8 @@ var db = mongoose.createConnection(databaseConfig.server, databaseConfig.databas
 
 
 var minionSchema = new Schema({
-  name: String,
-  grains: Object  
+    name: String,
+    grains: Object
 });
 
 module.exports = db.model('Minion', minionSchema);

@@ -1,48 +1,59 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
+
 a {
-  color: #00b7ff;
+    color: #00b7ff;
 }
+
 @media (max-width: 768px) {
-  .page-header .page-header-toolbar {
-    margin-bottom: 5px;
-  }
-  .page-header .btn-sm {
-    padding: 8px;
-    font-size: 0px;
-  }
-  .page-header .btn-sm i {
-    font-size: 20px;
-    margin: 3px 0px 0px 0px;
-  }
+    .page-header .page-header-toolbar {
+        margin-bottom: 5px;
+    }
+
+    .page-header .btn-sm {
+        padding: 8px;
+        font-size: 0px;
+    }
+
+    .page-header .btn-sm i {
+        font-size: 20px;
+        margin: 3px 0px 0px 0px;
+    }
 }
+
 .dynamic_alerts {
-  height: 100%;
-  margin-top: 25px;
+    height: 100%;
+    margin-top: 25px;
 }
+
 .dynamic_alerts .alert_close {
-  margin-bottom: 4px;
+    margin-bottom: 4px;
 }
+
 .page-header h2 {
-  overflow-y: visible;
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  padding-bottom: 2px;
+    overflow-y: visible;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding-bottom: 2px;
 }
+
 .page-header-toolbar {
-  margin-top: 2px;
+    margin-top: 2px;
 }
+
 .page-header-toolbar .btn-icon {
-  padding-bottom: 50px;
+    padding-bottom: 50px;
 }
+
 .list-group-item {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
+
 .settings_edit .input-group-addon {
-  min-width: 100px;
+    min-width: 100px;
 }

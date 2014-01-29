@@ -1,21 +1,21 @@
 extends minion_layout
 
 block more_dropdown
-  ul.dropdown-menu
-    li
-      a(href='#')  Dashboard
-    li
-      a(href='#{id}/highstate')  Highstate
-    li
-      a(href='#')  Pillars
-    li.active
-      a(href='#{id}/grains')  Grains
+    ul.dropdown-menu
+        li
+            a(href='#')  Dashboard
+        li
+            a(href='#{id}/highstate')  Highstate
+        li
+            a(href='#')  Pillars
+        li.active
+            a(href='#{id}/grains')  Grains
 
 block content
-  .row
-    .col-sm-12
-      #grains_list
+    .row
+        .col-sm-12
+            #grains_list
 
 block script_includes
-  script(src='/socket.io/socket.io.js')
-  script(src='/javascripts/manage_grain_list.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/javascripts/manage_grain_list.js')
