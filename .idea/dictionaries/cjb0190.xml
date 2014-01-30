@@ -2,6 +2,9 @@
   <dictionary name="cjb0190">
     <words>
       <w>authtype</w>
+      <w>bcrypt</w>
+      <w>nodejs</w>
+      <w>sudo</w>
     </words>
   </dictionary>
 </component>

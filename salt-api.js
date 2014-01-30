@@ -9,12 +9,12 @@ Salt_API = function() {};
 /**
  * Function to login to the Salt Server
  * @param {String} host - The host name of
- *  the Salt Server (http://example.com:8000)
+ *      the Salt Server (http://example.com:8000)
  * @param {String} user - The User to attempt a login with.
  * @param {String} pass - The corresponding
- *  password to attempt a login with.
+ *      password to attempt a login with.
  * @param {String} authtype - The Authentication Type
- *  to use (i.e. epam, ldap, etc).
+ *      to use (i.e. epam, ldap, etc).
  * @param {Function} callback - The callback function
  */
 Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
@@ -41,7 +41,7 @@ Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
 /**
  * Function to get a Minions grains from the server.
  * @param {String} host - The host name of the
- *  Salt Server (http://example.com:8000)
+ *      Salt Server (http://example.com:8000)
  * @param {String} token - The session token for the salt server.
  * @param {String} target - The targeted minion.
  * @param {Function} callback - The callback function
@@ -66,7 +66,7 @@ Salt_API.prototype.get_minion_grains = function(host, token, target, callback) {
 /**
  * Function go run an action on a targed minion.
  * @param {String} host - The host name of the
- *  Salt Server (http://example.com:8000)
+ *      Salt Server (http://example.com:8000)
  * @param {String} token - The session token for the salt server.
  * @param {String} target - The targeted minion.
  * @param {String} func - The Function to run on the targeted Minion.
@@ -94,7 +94,8 @@ Salt_API.prototype.minion_function =
 
         }).on('error', function(error) {
             console.log(error);
-            callback(true, 'Server Error while running function: ' + func + '.');
+            callback(true, 'Server Error while running function: ' +
+                func + '.');
 
         });
 };
@@ -102,7 +103,7 @@ Salt_API.prototype.minion_function =
 /**
  * Function to get a jobs return.
  * @param {String} host - The host name of the
- *  Salt Server (http://example.com:8000)
+ *      Salt Server (http://example.com:8000)
  * @param {String} token - The session token for the salt server.
  * @param {String} jid - The job ID number for the Salt-Run
  * @param {Function} callback - The callback function

@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    .row
+        div.login-box
+            .col-md-6.col-md-offset-3.well
+                h1
+                    span.fa.fa-sign-in
+                    |  Login
+                if (message.length > 0)
+                    .alert.alert-danger
+                        | #{message}
+                hr
+
+                form(action='/login' method='post')
+                    .form-group
+                        label Username
+                        input.form-control(type='text' name='username')
+                    .form-group
+                        label Password
+                        input.form-control(type='password' name='password')
+                    .form-group
+                        button.pull-right.btn.btn-primary.btn-lg(type='submit') Login

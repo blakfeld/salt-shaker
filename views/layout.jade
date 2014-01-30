@@ -20,19 +20,20 @@ html
                         span.icon-bar
                         span.icon-bar
                     a.navbar-brand(href='/') Salt-Shaker
-                .navbar-collapse.collapse
-                    ul.nav.navbar-nav
-                        each name in ["Home", "Minions", "Settings"]
-                            if (name == "Home")
-                                - var nav_link = "/"
-                            else
-                                - var nav_link = "/" + name.toLowerCase()
-                            if (title == name)
-                                li.active
-                                    a(href="#{nav_link}")= name
-                            else
-                                li
-                                    a(href="#{nav_link}")= name
+                if (typeof(user) !== 'undefined')
+                    .navbar-collapse.collapse
+                        ul.nav.navbar-nav
+                            each name in ["Home", "Minions", "Settings"]
+                                if (name == "Home")
+                                    - var nav_link = "/"
+                                else
+                                    - var nav_link = "/" + name.toLowerCase()
+                                if (title == name)
+                                    li.active
+                                        a(href="#{nav_link}")= name
+                                else
+                                    li
+                                        a(href="#{nav_link}")= name
 
         .container
             .dynamic_alerts(id="alerts")

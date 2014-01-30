@@ -5,7 +5,8 @@
 var databaseConfig = require('../config/database');
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var db = mongoose.createConnection(databaseConfig.server, databaseConfig.database);
+var db = mongoose.createConnection(databaseConfig.server,
+    databaseConfig.database);
 
 
 var minionSchema = new Schema({
@@ -13,4 +14,8 @@ var minionSchema = new Schema({
     grains: Object
 });
 
+/**
+ * Export MinionSchema Object
+ * @type {*|Model}
+ */
 module.exports = db.model('Minion', minionSchema);

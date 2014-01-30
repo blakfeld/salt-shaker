@@ -19,6 +19,7 @@
         "passport-local": "0.1.6",
         "passport-ldap": "0.0.1",
         "connect-flash": "~0.1.1",
-        "bcrypt-nodejs": "latest"
+        "bcrypt": "latest",
+        "commander": "latest"
     }
 }
