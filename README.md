@@ -10,15 +10,18 @@ At the moment, all this app does is let you see what active minions you have, an
 ### Features in Progress
 Once these features are complete, I'll consider this project in alpha, and usable.
 
-- [x] View Minions
-- [x] View Minion Grains
-- [x] Store Connection info in Database
-- [ ] Add Login
-- [ ] Run Salt Calls
-- [ ] Alert Better on Timeout
-- [ ] Show High State
-- [ ] Show Current Pillars
-- [ ] Show States
-- [ ] Show States
-- [ ] Create Global Dashboard
-- [ ] Create Minion Dashboard
+* [x] View Minions
+* [x] View Minion Grains
+* [x] Store Connection info in Database
+* [ ] Add Login
+  * [x] Local Login
+  * [ ] LDAP Login
+  * [ ] Add Account Mangement 
+* [ ] Run Salt Calls
+* [ ] Alert Better on Timeout
+* [ ] Show High State
+* [ ] Show Current Pillars
+* [ ] Show States
+* [ ] Show States
+* [ ] Create Global Dashboard
+* [ ] Create Minion Dashboard
