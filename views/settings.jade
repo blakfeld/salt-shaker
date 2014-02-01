@@ -5,10 +5,10 @@ block page_header
         .pull-right
             .page-header-toolbar
                 .btn-group
-                    button.btn.btn-primary.btn-sm(id='save' type='button' data-loading-text="<i class='fa fa-spinner fa-spin fa-lg'></i>&nbsp;&nbsp;Saving...&nbsp;")
+                    button.btn.btn-primary.btn-sm(id='save', type='button', data-loading-text="<i class='fa fa-spinner fa-spin fa-lg'></i>&nbsp;&nbsp;Saving...&nbsp;")
                         span.glyphicon.glyphicon-save
                         | &nbsp;&nbsp;Save Changes&nbsp;
-                    button.btn.btn-info.btn-sm.dropdown-toggle(type="button" data-toggle="dropdown")
+                    button.btn.btn-info.btn-sm.dropdown-toggle(type="button", data-toggle="dropdown")
                         | &nbsp;More&nbsp;&nbsp;
                         span.glyphicon.glyphicon-chevron-down
                     ul.dropdown-menu
@@ -21,28 +21,28 @@ block page_header
 
 block content
     .row
-        if (message != '')
+        if (typeof(message) !== 'undefined' && message != '')
             script(type='text/javascript').
-              bootstrap_alert('#{message.type}', '<strong>#{message.title}:</strong> #{message.text}', 3000, false);
+              bootstrap_alert('success', '<strong>Success:</strong> #{message}', 3000, false);
         .col-sm-6
             .settings_edit
-                form(id='settings' action='/settings' method='post')
+                form(id='settings-form', action='/settings', method='post')
                     label.h4 Server Settings
                     .input-group
                         span.input-group-addon Salt Server
-                        input.form-control(name="host" enctype="application/json" type="text" placeholder="http://example.com:8000" value="#{host}")
+                        input.form-control(name="host", enctype="application/json", type="text", placeholder="http://example.com:8000", value="#{host}")
                     br
                     .input-group
                         span.input-group-addon Username
-                        input.form-control(name="user" type="text" placeholder="Username" value="#{user}")
+                        input.form-control(name="user", type="text", placeholder="Username", value="#{user}")
                     br
                     .input-group
                         span.input-group-addon Password
-                        input.form-control(name="pass" type="password" placeholder="Password" value="#{pass}")
+                        input.form-control(name="pass", type="password",placeholder="Password", value="#{pass}")
                     br
                     hr
                     label.h4 Authentication Type
-                    select.form-control.input-sm(name="auth_type" value="#{auth_type}")
+                    select.form-control.input-sm(name="auth_type", value="#{auth_type}")
                         Option
                             | PAM
                         Option

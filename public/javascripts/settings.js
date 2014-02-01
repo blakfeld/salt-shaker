@@ -4,6 +4,6 @@ $(document).ready(function() {
     $('#save').click(function() {
         $(this).button('loading');
         $(this).prop('disabled', true);
-        $('#settings').submit();
+        $('#settings-form').submit();
     });
 });

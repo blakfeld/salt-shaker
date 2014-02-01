@@ -14,21 +14,32 @@ module.exports = function (app) {
                 res.render('settings', {title: 'Settings', message: { type: 'danger', title: 'Warning', text: data } });
             }
 
-            settings = data.settings;
-            res.render('settings', {title: 'Settings', host: settings.host, user: settings.user, password: settings.pass, auth_type: settings.auth_type, message: ''});
+            if (!data) {
+
+                res.render('settings', {title: 'Settings', host: '', user: '', password: '', auth_type: '', message: ''});
+
+            } else {
+
+                settings = data.settings;
+                res.render('settings', {title: 'Settings', host: settings.host, user: settings.user, password: settings.pass, auth_type: settings.auth_type, message: req.flash('settingsMessage')});
+            }
         });
     });
 
     app.post('/settings', function (req, res) {
 
-        newSettings = {'host': req.body.host, 'user': req.body.user, 'pass': req.body.pass, 'auth_type': req.body.auth_type};
+        var newSettings = {'host': req.body.host, 'user': req.body.user, 'pass': req.body.pass, 'auth_type': req.body.auth_type};
 
         settings_database.setSettings('server', newSettings, function (error, data) {
-            if (error)
+            if (error);
                 res.render('settings', {title: 'Settings', message: {type: 'danger', title: 'Warning', text: data }});
 
-            settings = data;
-            res.render('settings', {title: 'Settings', host: settings.host, user: settings.user, password: settings.pass, auth_type: settings.auth_type, message: { type: 'success', title: 'Success', text: 'Changes saved successfully!' }});
+            if (data) {
+                console.log("Settings:" + data.settings);
+                var settings = data.settings;
+                req.flash('settingsMessage', 'Settings successfully saved!');
+                res.redirect('/settings');
+            }
         });
     });
 }

@@ -5,6 +5,7 @@
 var LocalStrategy = require('passport-local').Strategy;
 
 /* Models */
+
 var User = require('../models/userSchema');
 
 /**
@@ -43,7 +44,8 @@ module.exports = function(passport) {
 
                 // If no user found, return error
                 if (!user || !user.validPassword(password))
-                    return done(null, false, req.flash('loginMessage', 'Incorrect Username or Password.'));
+                    return done(null, false,
+                        req.flash('loginMessage','Incorrect Username or Password.'));
 
                 // If all is well, return user
                 return done(null, user);

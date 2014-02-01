@@ -1,12 +1,11 @@
 doctype html
-html
+html(ng-app="salt-shaker")
     head
-        title= "Salt-Shaker"
+        title= 'Salt-Shaker'
         link(rel='stylesheet', href='/bootstrap/css/bootstrap.min.css')
         link(rel='stylesheet', href='/stylesheets/style.css')
-        link(rel='stylesheet' href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css")
+        link(rel='stylesheet' href='http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css')
         script(src='https://code.jquery.com/jquery-1.10.2.min.js')
-        script(src='http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
         script(src='/bootstrap/js/bootstrap.min.js')
         script(src='/bootstrap/js/alert.js')
         script(src='/javascripts/bootstrap_alerts.js')
@@ -23,21 +22,24 @@ html
                 if (typeof(user) !== 'undefined')
                     .navbar-collapse.collapse
                         ul.nav.navbar-nav
-                            each name in ["Home", "Minions", "Settings"]
-                                if (name == "Home")
-                                    - var nav_link = "/"
+                            each name in ['Home', 'Minions', 'Settings']
+                                if (name == 'Home')
+                                    - var nav_link = '/'
                                 else
-                                    - var nav_link = "/" + name.toLowerCase()
+                                    - var nav_link = '/' + name.toLowerCase()
                                 if (title == name)
                                     li.active
-                                        a(href="#{nav_link}")= name
+                                        a(href='#{nav_link}')= name
                                 else
                                     li
-                                        a(href="#{nav_link}")= name
+                                        a(href='#{nav_link}')= name
 
         .container
-            .dynamic_alerts(id="alerts")
+            .dynamic_alerts(id='alerts')
+
             .content
                 block page_header
                 block content
+
+
         block script_includes

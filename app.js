@@ -5,7 +5,6 @@
 var express = require('express');
 var http = require('http');
 var path = require('path');
-var gzippo = require('gzippo');
 var passport = require('passport');
 var flash = require('connect-flash');
 var salt_sockets = require('./salt-sockets');
@@ -29,22 +28,27 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
-
-// Passport
-app.use(express.session({ secret: '4f51819636522b04a19c0aebfdf99d87' }));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
-
-// Gzippo
-app.use(gzippo.staticGzip(__dirname + '/public'));
-app.use(gzippo.compress());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Pass Auth info to pages
 app.use( function(req, res, next) {
-        res.locals.user = req.user;
-        next();
+    res.locals.user = req.user;
+    next();
 });
+
+app.use(function(req, res, next) {
+   res.on('header', function(header) {
+       console.trace("HEADERS BEING WRITTEN "+ header);
+   });
+   next();
+});
+
+// Passport
+app.use(express.session(
+    { secret: '4f51819636522b04a19c0aebfdf99d87' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 var routes = require('./routes')(app,passport);
 app.use(app.router);

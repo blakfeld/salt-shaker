@@ -19,18 +19,34 @@ Settings_Database.prototype.setSettings =
     function(type, newSettings, callback) {
 
     if (validator.isURL(newSettings.host)) {
-        if (newSettings.user == '' || newSettings.pass == '') {
+        if (newSettings.user == '' || newSettings.pass == '' || newSettings.pass == 'undefined') {
             callback(true, 'Username and Password must be provided');
         }
 
-        Settings.remove({});
-        var newSet = new Settings({'type': type, 'settings': newSettings});
-        newSet.save(function(error) {
-            if (error) {
-                callback(true, 'Unable to save Settings');
-            }
+        Settings.findOne({'type': type}, function(error, settings) {
+            if(error)
+                callback(true, "Unable to talk to database.");
 
-            callback(null, newSet);
+            if(!settings) {
+
+                var newSet = new Settings({'type': type, 'settings': newSettings});
+
+                newSet.save(function(error) {
+                    if (error) {
+                        callback(true, 'Unable to save Settings');
+                    }
+
+                    callback(null, newSet);
+                });
+
+            } else {
+                Settings.findOneAndUpdate({'type': type},
+                    {$set: {'settings': newSettings}},
+                function(error) {
+                    if (error)
+                        callback(true, "Unable to update settings");
+                });
+            }
         });
 
     } else {
