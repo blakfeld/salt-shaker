@@ -12,13 +12,17 @@ block page_header
                         | &nbsp;More&nbsp;&nbsp;
                         span.glyphicon.glyphicon-chevron-down
                     ul.dropdown-menu
-                        li.active
-                            a(href='#') Server Settings
-                        li
-                            a(hef='#') App Settings
+                        each name in ["Server", "Login"]
+                            - var nav_link = id + "/" + name.toLowerCase();
+                            if (subtitle == name)
+                                li.active
+                                    a(href='#{nav_link}')= name
+                            else
+                                li
+                                    a(href='#{nav_link}')=name
         .page-header-title
-            h2= title
-
+            span
+                h2 #{title}
 block content
     .row
         if (typeof(message) !== 'undefined' && message != '')
@@ -30,23 +34,24 @@ block content
                     label.h4 Server Settings
                     .input-group
                         span.input-group-addon Salt Server
-                        input.form-control(name="host", enctype="application/json", type="text", placeholder="http://example.com:8000", value="#{host}")
+                        input.form-control(id="host", name="host", enctype="application/json", type="text", placeholder="http://example.com:8000")
                     br
                     .input-group
                         span.input-group-addon Username
-                        input.form-control(name="user", type="text", placeholder="Username", value="#{user}")
+                        input.form-control(id="user", name="user", type="text", placeholder="Username")
                     br
                     .input-group
                         span.input-group-addon Password
-                        input.form-control(name="pass", type="password",placeholder="Password", value="#{pass}")
+                        input.form-control(id="pass", name="pass", type="password",placeholder="Password")
                     br
                     hr
                     label.h4 Authentication Type
-                    select.form-control.input-sm(name="auth_type", value="#{auth_type}")
+                    select.form-control.input-sm(id="auth_type",name="auth_type")
                         Option
                             | PAM
                         Option
                             | LDAP
 
 block script_includes
+    script(src='/socket.io/socket.io.js')
     script(src='/javascripts/settings.js')

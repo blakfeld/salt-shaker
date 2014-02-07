@@ -78,4 +78,4 @@ Settings_Database.prototype.getSettings = function(type, callback) {
  * Export Settings_Database Object
  * @type {Settings_Database}
  */
-module.exports = Settings_Database;
+exports.Settings_Database = Settings_Database;

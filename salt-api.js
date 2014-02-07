@@ -18,6 +18,7 @@ Salt_API = function() {};
  * @param {Function} callback - The callback function
  */
 Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
+    console.log('Host: ' + host + '\nUser: ' + user + '\nPass: ' + pass + '\nAuth Type: ' + authtype);
     rest.post(host + '/login', {
         data: {
             'username': user,
@@ -26,6 +27,7 @@ Salt_API.prototype.login = function(host, user, pass, authtype, callback) {
         }
 
     }).on('complete', function(data) {
+        console.log(data);
         callback(null, data.return[0].token);
 
     }).on('timeout', function(error) {

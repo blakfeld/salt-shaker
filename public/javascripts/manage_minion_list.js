@@ -8,7 +8,7 @@ $(document).ready(function() {
 
     // Handle receiving minion list
     socket.on('minion_list', function(data) {
-        if (data.minions) {
+        if (data.minions.length > 0) {
             var minions = data.minions;
             var html = "<ul class='list-group'>";
 
@@ -23,7 +23,10 @@ $(document).ready(function() {
             $('#refresh').button('reset');
 
         } else {
-            minion_list.innerHTML = '<p>Something Broke</p>';
+
+            // If we didn't get what we wanted the first time,
+            //  ask for it again.
+            socket.emit('get_minion_list');
         }
     });
 

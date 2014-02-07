@@ -3,6 +3,8 @@
  */
 
 var LocalStrategy = require('passport-local').Strategy;
+var LdapStrategy = require('passport-ldapauth').Strategy;
+
 
 /* Models */
 
@@ -51,4 +53,12 @@ module.exports = function(passport) {
                 return done(null, user);
             });
         }));
+
+    /**
+     * LDAP Login
+     */
+
+    passport.use('ldap-login', new LdapStrategy({
+
+    }));
 };

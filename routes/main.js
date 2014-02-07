@@ -2,13 +2,16 @@
  * Routing for Home Page
  */
 
+var login = require('connect-ensure-login');
+
 module.exports = function(app, passport) {
 
     /**
      * Index
      */
 
-    app.get('/', function(req, res) {
+    app.get('/', login.ensureLoggedIn('/login'), function(req, res) {
+        console.log(req.user);
         res.render('index', {title: 'Home'});
     });
 

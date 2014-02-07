@@ -21,7 +21,7 @@ Salt_Database.prototype.addMinionsToDatabase = function(callback) {
         }
 
         if (typeof(data.length) !== 'undefined') {
-            Minion.remove({});
+            Minion.remove().exec();
 
             for (var i = 0; i < data.length; i++) {
                 var minion = new Minion({'name': data[i], 'grains': {}});
@@ -71,7 +71,7 @@ Salt_Database.prototype.addMinionGrains = function(id, callback) {
         if (error) {
             callback(true, error);
         }
-
+        console.log(data);
         var minion_name = data.name;
 
         salt_parser.refreshMinionGrains(minion_name, function(error, data) {

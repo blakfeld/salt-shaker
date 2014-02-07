@@ -30,18 +30,6 @@ app.use(express.methodOverride());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Pass Auth info to pages
-app.use( function(req, res, next) {
-    res.locals.user = req.user;
-    next();
-});
-
-app.use(function(req, res, next) {
-   res.on('header', function(header) {
-       console.trace("HEADERS BEING WRITTEN "+ header);
-   });
-   next();
-});
 
 // Passport
 app.use(express.session(
@@ -49,6 +37,15 @@ app.use(express.session(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
+// Pass Auth info to pages
+app.use( function(req, res, next) {
+    res.locals.request = req;
+
+    res.locals.user = req.user;
+    next();
+});
+
 
 var routes = require('./routes')(app,passport);
 app.use(app.router);

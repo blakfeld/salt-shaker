@@ -14,6 +14,9 @@ $(document).ready(function() {
             var html = "<ul class='list-group'>";
             for (var key in grains) {
 
+                if (key.substring(0,1) == '_')
+                    continue;
+
                 html += '<li class="list-group-item">';
                 html += '<h4 class="list-group-item-heading">' + key + '</h4>';
 
